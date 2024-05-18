@@ -7,4 +7,4 @@
 
 # Ниже приведена диаграмма модели C4:
 
-![Диаграмма модели C4](c4_diagram.png)
+![Диаграмма модели C4](https://github.com/solomonalfred/autolibrary/blob/main/documetation/%D1%814_diagram.png)
