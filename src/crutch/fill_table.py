@@ -24,7 +24,7 @@ def parse_excel(file_path: str):
 
 def fill_from_excel():
     manager = LibraryManager()
-    data = parse_excel("crutch/Библиотека архив.xlsx")
+    data = parse_excel("src/crutch/Библиотека архив.xlsx")
 
     for subject, books in data.items():
         for book in books:

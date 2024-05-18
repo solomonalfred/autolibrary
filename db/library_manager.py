@@ -1,12 +1,13 @@
 import pymongo
 from typing import List, Dict, Union
+import os
 
 
 class LibraryManager:
     def __init__(self):
         # server db URL: "mongodb://mongodb:27017"
         # test db URL: "mongodb://localhost:27017"
-        url = "mongodb://localhost:27017"
+        url = os.getenv("MONGO_URL" , "mongodb://localhost:27017")
         self.client = pymongo.MongoClient(url)
         self.db = self.client.AutoLibrary
         self.library = self.db.library
