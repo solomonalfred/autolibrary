@@ -21,7 +21,6 @@ logger.addHandler(handler)
 library = LibraryManager()
 cards = CardManager()
 
-user_states = {}
 search = {ButtonText.SEARCH_BY_AUTHOR, ButtonText.SEARCH_BY_NAME}
 show_function = {
     ButtonText.SEARCH_BY_AUTHOR: dinamic_handler_show_authors,
@@ -54,9 +53,6 @@ def handle_buttons(message):
 
 def handle_dynamic_buttons(message):
     tg_id = message.from_user.id
-    if tg_id not in user_states:
-        user_states[tg_id] = {}
-
     subjects = library.get_all_subjects()
     authors = get_all_authors()
 
@@ -64,15 +60,17 @@ def handle_dynamic_buttons(message):
     if msg in subjects:
         subject = dinamic_handler_choose_variable(message,
                                                   bot)
-        user_states[tg_id]['subject'] = subject
+        cards.set_subject(tg_id, subject)
     elif msg in search or msg in authors:
         func = msg
         if show_function.get(msg) is None:
             func = AdditionalItems.SUBJECT_AUTHOR
-        subject = user_states[tg_id].get('subject')
-        show_function[func](message,
-                            bot,
-                            subject)
+        subject = cards.get_subject_by_tg_id(tg_id)
+        show_func = show_function.get(func)
+        try:
+            show_func(message, bot, subject)
+        except Exception as e:
+            logger.error(e)
     else:
         dinamic_handler_book_details(message, bot)
     if msg == ButtonText.BACK_TO_MAIN_MENU:

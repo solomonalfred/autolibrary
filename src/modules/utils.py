@@ -61,9 +61,11 @@ def dinamic_handler_show_authors(message,
     show_authors(message, subject, bot)
 
 
-def dinamic_handler_show_name(message, bot, subject):
+def dinamic_handler_show_name(message,
+                              bot,
+                              subject):
     logger.info(LoggerText.SELECT_NAME.format(
-
+        message.from_user.id
     ))
     show_books_by_subject(message, subject, bot)
 
