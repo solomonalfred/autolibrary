@@ -11,6 +11,7 @@ services:
       - MONGO_URL=${URL}
     depends_on:
       - mongodb
+    restart: on-failure
 
   mongodb:
     image: mongo:latest
